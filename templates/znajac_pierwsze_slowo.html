@@ -1,0 +1,51 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="content-section">
+        <form method="POST" action="">
+            {{ form.hidden_tag() }}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Deszyfrowanie wiadomości znając 4 pierwsze litery wiadomości niezaszyfrowanej,<br>które zostały zaszyfrowane macierzą-klucz stopnia 2</legend>
+                <div class="form-group">
+                    {{ form.encrypted.label(class="form-control-label") }}
+                    {% if form.encrypted.errors %}
+                        {{ form.encrypted(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.encrypted.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.encrypted(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form.word.label(class="form-control-label") }}
+                    {% if form.word.errors %}
+                        {{ form.word(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.word.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.word(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+            </fieldset>
+            <div class="form-group">
+                {{ form.submit(class="btn btn-outline-info") }}
+            </div>
+        </form>
+    </div>
+<body>
+    <div>
+        {% if lista_rozwiazan %}
+            Odszyfrowane wiadomosci:
+            {% for rozwiazanie in lista_rozwiazan %}
+                <h1> {{ rozwiazanie }} </h1>
+            {% endfor %}
+        {% endif %}
+    </div>
+</body>
+
+{% endblock content %}

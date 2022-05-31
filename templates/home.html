@@ -1,0 +1,51 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="content-section">
+  <div class="media">
+    <img class="rounded-circle account-img" src="https://forumakademickie.pl/wp-content/uploads/2020/11/pk-1.jpg" alt="Politechnika Krakowska">
+    <div class="media-body">
+      <h2 class="account-heading">Kryptosystem Hilla </h2>
+      <p class="text-secondary">Projekt wykonali:</p>
+      <p class="text-secondary">
+        <ul>
+          <li>Małgorzata Sławińska</li>
+          <li>Iga Sornat</li>
+          <li>Martyna Mazur</li>
+          <li>Mikołaj Sambor</li>
+          <li>Piotr Musielak</li>
+        </ul>
+  </div>
+</div>
+<div>
+  <article class="media content-section">
+    <div class="media-body">
+      <h2><a class="article-title" href="{{ url_for('szyfrowanie') }}">Szyfrowanie wiadomości</a></h2>
+    </div>
+  </article>
+  <article class="media content-section">
+    <div class="media-body">
+      <h2><a class="article-title" href="{{ url_for('deszyfrowanie') }}">Deszyfrowanie wiadomości</a></h2>
+    </div>
+  </article>
+  <article class="media content-section">
+    <div class="media-body">
+      <h2><a class="article-title" href="{{ url_for('znajac_pierwsze_slowo') }}">Deszyfrowanie wiadomości, znając 4 pierwsze litery wiadomości bez klucza</a></h2>
+    </div>
+  </article>
+
+  <article class="media content-section">
+    <div class="media-body">
+      <h2><a class="article-title" href="{{ url_for('bruteforce') }}">Deszyfrowanie wiadomości, metodą siłową</a></h2>
+    </div>
+  </article>
+    <article class="media content-section">
+    <div class="media-body">
+      <h2><a class="article-title" href="{{ url_for('instrukcja') }}">Instrukcja</a></h2>
+    </div>
+  </article>
+</div>
+</div>
+
+
+
+{% endblock content %}

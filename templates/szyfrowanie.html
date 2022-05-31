@@ -1,0 +1,106 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="content-section">
+        <form method="POST" action="">
+            {{ form.hidden_tag() }}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Szyfrowanie Wiadomości</legend>
+                <div class="form-group">
+                    {{ form.message.label(class="form-control-label") }}
+                    {% if form.message.errors %}
+                        {{ form.message(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.message.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.message(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form.key.label(class="form-control-label") }}
+                    {% if form.key.errors %}
+                        {{ form.key(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.key.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.key(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div id="the-count" class="float-right">
+                    <span>Liczba znaków:</span>
+                    <span id="current">0</span>
+                    <span id="maximum"></span>
+                </div>
+                <div class="form-group">
+                    {{ form.alphabet.label(class="form-control-label") }}
+                    {% if form.alphabet.errors %}
+                        {{ form.alphabet(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.alphabet.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.alphabet(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+            </fieldset>
+            Zaszyfrowana wiadomość:<h1>{{ encrypted_message }}</h1><br>
+            <div class="form-group">
+                {{ form.submit(class="btn btn-outline-info") }}
+            </div>
+        </form>
+    </div>
+<body>
+<script type="text/javascript">
+$('#key').keyup(function() {
+     var isSquare = function(n) {
+
+  return Number.isInteger(Math.sqrt(n));
+};
+
+  var characterCount = $(this).val().length,
+      current = $('#current'),
+      maximum = $('#maximum'),
+      theCount = $('#the-count');
+
+  current.text(characterCount);
+
+var is_quare = isSquare(characterCount);
+  if (is_quare) {
+    maximum.css('color', '#8f0001');
+    current.css('color', '#8f0001');
+    theCount.css('font-weight','bold');
+  } else {
+    maximum.css('color','#666');
+    theCount.css('font-weight','normal');
+  }
+
+
+});
+</script>
+<div>
+{% if message_matrix %}
+    {% if message_fixed %}
+        <strong>Uwaga,</strong> wiadomość musi być wielokrotnością stopnia macierzy "klucz",
+więc zostało do niej dodane odpowiednia ilość liter z początku i wygląda ona teraz tak:<br>
+<strong><h3>{{message_fixed}}</h3></strong><br><br>
+    {% endif %}
+
+    Wiadomość w postaci macierzowej przed szyfracją:
+    $$ MESSAGE = {{ message_matrix }}$$
+    Klucz w postaci macierzowej:
+    $$ KEY = {{ matrix_from_key }} $$
+    Proces szyfracji:
+    $$ {{matrix_from_key}}{{message_matrix}}$$ $$=$$ $${{encryption_matrix_mutipled}} $$
+    Zaszyfrowana wiadomość w postaci macierzowej to:
+    $$ ENCRYPTED =  {{ matrix_encrypted }} mod({{modulo}})$$
+{% endif %}
+</div>
+
+{% endblock content %}
