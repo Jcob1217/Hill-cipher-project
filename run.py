@@ -1,6 +1,6 @@
 import threading
 from flask import Flask, render_template, url_for, flash, Markup
-from forms import Szyfrowanie, Deszyfrowanie, Zgadywane, BruteForce
+from forms import Encryption, Decryption, Guessed, BruteForce
 import array_to_latex as a2l
 from hill_rewrite import HillCipher, brute_force_thread
 
@@ -18,7 +18,7 @@ def home():
 
 @app.route("/szyfrowanie", methods=['GET', 'POST'])
 def szyfrowanie():
-    form = Szyfrowanie()
+    form = Encryption()
     if form.validate_on_submit():
         try:
             message_fixed, encryption_matrix_mutipled, message_matrix, matrix_from_key, matrix_encrypted, encrypted_message = \
@@ -44,7 +44,7 @@ def szyfrowanie():
 
 @app.route("/deszyfrowanie", methods=['GET', 'POST'])
 def deszyfrowanie():
-    form = Deszyfrowanie()
+    form = Decryption()
     if form.validate_on_submit():
         try:
             matrix_decryption, decryption_multiplier, matrix_from_key, inverse_key, matrix_encrypted, decrypted_message =\
@@ -67,7 +67,7 @@ def deszyfrowanie():
 
 @app.route("/znajac_pierwsze_slowo", methods=['GET', 'POST'])
 def znajac_pierwsze_slowo():
-    form = Zgadywane()
+    form = Guessed()
     if form.validate_on_submit():
 
         lista_rozwiazan = HillCipher().decypt_with_4_letters(form.encrypted.data, form.word.data)

@@ -6,7 +6,7 @@ from wtforms.validators import DataRequired, Length, Email, EqualTo
 alfabecik = Markup('Alfabet, <br> np. abcdefghijklmnopqrstuvwxyz_ąćęłńóśźż1234567890, <br> abcdefghijklmnopqrstuvwxyz_かたかなカタカナ片仮名')
 
 
-class Szyfrowanie(FlaskForm):
+class Encryption(FlaskForm):
     message = StringField('Wiadomość do zaszyfowania',
                         validators=[DataRequired()])
     key = StringField('Tajny klucz', validators=[DataRequired()])
@@ -14,7 +14,7 @@ class Szyfrowanie(FlaskForm):
     submit = SubmitField('Szyfruj')
 
 
-class Deszyfrowanie(FlaskForm):
+class Decryption(FlaskForm):
     message = StringField('Wiadomość do odszyfrowania',
                         validators=[DataRequired()])
     key = StringField('Tajny klucz', validators=[DataRequired()])
@@ -22,7 +22,7 @@ class Deszyfrowanie(FlaskForm):
     submit = SubmitField('Deszyfruj')
 
 
-class Zgadywane(FlaskForm):
+class Guessed(FlaskForm):
     word = StringField('Pierwsze 4 litery wiadomości',
                         validators=[DataRequired(), Length(max=4, min=4)])
     encrypted = StringField('Zaszyfrowana wiadomość na razie tylko o długości alfabetu wynoszącą 26', validators=[DataRequired()])
